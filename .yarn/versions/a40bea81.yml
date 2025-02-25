@@ -1,3 +1,4 @@
 releases:
   "@radix-ui/react-select": patch
+  primitives: patch
   radix-ui: patch
