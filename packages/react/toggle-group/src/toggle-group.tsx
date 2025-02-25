@@ -21,6 +21,7 @@ const [createToggleGroupContext, createToggleGroupScope] = createContextScope(TO
 ]);
 const useRovingFocusGroupScope = createRovingFocusGroupScope();
 
+// TODO: fix type error
 type ToggleGroupElement = ToggleGroupImplSingleElement | ToggleGroupImplMultipleElement;
 interface ToggleGroupSingleProps extends ToggleGroupImplSingleProps {
   type: 'single';
