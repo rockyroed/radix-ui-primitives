@@ -92,6 +92,7 @@ interface SelectProps {
   disabled?: boolean;
   required?: boolean;
   form?: string;
+  enableFormControl?: boolean;
 }
 
 const Select: React.FC<SelectProps> = (props: ScopedProps<SelectProps>) => {
@@ -110,6 +111,7 @@ const Select: React.FC<SelectProps> = (props: ScopedProps<SelectProps>) => {
     disabled,
     required,
     form,
+    enableFormControl,
   } = props;
   const popperScope = usePopperScope(__scopeSelect);
   const [trigger, setTrigger] = React.useState<SelectTriggerElement | null>(null);
@@ -128,8 +130,10 @@ const Select: React.FC<SelectProps> = (props: ScopedProps<SelectProps>) => {
   });
   const triggerPointerDownPosRef = React.useRef<{ x: number; y: number } | null>(null);
 
-  // We set this to true by default so that events bubble to forms without JS (SSR)
-  const isFormControl = trigger ? form || !!trigger.closest('form') : true;
+  // Default to true for SSR form event bubbling, but allow disabling via enableFormControl.
+  // Use nullish coalescing to prevent empty string from triggering form control behavior.
+  const isFormControl =
+    enableFormControl === false ? false : trigger ? (form ?? !!trigger.closest('form')) : true;
   const [nativeOptionsSet, setNativeOptionsSet] = React.useState(new Set<NativeOption>());
 
   // The native `select` only associates the correct default value if the corresponding
