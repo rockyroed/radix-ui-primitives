@@ -119,6 +119,27 @@ describe('given a multiple ToggleGroup', () => {
   });
 });
 
+describe('ToggleGroup type variable assignment', () => {
+  let handleValueChange: Mock;
+  let rendered: RenderResult;
+
+  beforeEach(() => {
+    handleValueChange = vi.fn();
+    const dynamicType: 'single' | 'multiple' = 'single';
+    rendered = render(<ToggleGroupTest type={dynamicType} onValueChange={handleValueChange} />);
+  });
+
+  it('should have no accessibility violations', async () => {
+    expect(await axe(rendered.container)).toHaveNoViolations();
+  });
+
+  it('should work with type from variable', () => {
+    const one = rendered.getByText('One');
+    fireEvent.click(one);
+    expect(handleValueChange).toHaveBeenCalledWith('One');
+  });
+});
+
 const ToggleGroupTest = (props: React.ComponentProps<typeof ToggleGroup.Root>) => (
   <ToggleGroup.Root {...props}>
     <ToggleGroup.Item value="One">One</ToggleGroup.Item>

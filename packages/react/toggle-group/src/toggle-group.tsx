@@ -21,11 +21,15 @@ const [createToggleGroupContext, createToggleGroupScope] = createContextScope(TO
 ]);
 const useRovingFocusGroupScope = createRovingFocusGroupScope();
 
+type ToggleGroupType = 'single' | 'multiple';
 type ToggleGroupElement = ToggleGroupImplSingleElement | ToggleGroupImplMultipleElement;
-interface ToggleGroupSingleProps extends ToggleGroupImplSingleProps {
+interface ToggleGroupBaseProps {
+  type: ToggleGroupType;
+}
+interface ToggleGroupSingleProps extends ToggleGroupImplSingleProps, ToggleGroupBaseProps {
   type: 'single';
 }
-interface ToggleGroupMultipleProps extends ToggleGroupImplMultipleProps {
+interface ToggleGroupMultipleProps extends ToggleGroupImplMultipleProps, ToggleGroupBaseProps {
   type: 'multiple';
 }
 
