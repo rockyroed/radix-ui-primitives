@@ -128,6 +128,7 @@ const Select: React.FC<SelectProps> = (props: ScopedProps<SelectProps>) => {
   });
   const triggerPointerDownPosRef = React.useRef<{ x: number; y: number } | null>(null);
 
+  // TODO: Fix unwanted form control
   // We set this to true by default so that events bubble to forms without JS (SSR)
   const isFormControl = trigger ? form || !!trigger.closest('form') : true;
   const [nativeOptionsSet, setNativeOptionsSet] = React.useState(new Set<NativeOption>());
